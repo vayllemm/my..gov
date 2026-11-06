@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Портал документов — просмотр по PIN-коду</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="bg-blobs" aria-hidden="true"></div>
+  <div class="bg-cubes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="site-head">
+    <a class="site-head__brand" href="#">
+      <img src="my-gov-logo.svg" alt="my.gov.uz">
+    </a>
+
+    <nav class="site-head__nav">
+      <a href="#">Главная</a>
+      <button type="button" class="lang" id="langBtn">RU <span class="lang__caret">▾</span></button>
+      <a href="#" class="signin" id="signinLink">Войти</a>
+    </nav>
+  </header>
+
+  <div class="demo-disclaimer" role="note">Демонстрационная страница. Не является официальным сайтом my.gov.uz.</div>
+
+  <main class="layout">
+    <!-- Левая колонка: форма -->
+    <section class="form-col">
+      <div class="notice" id="authNotice">
+        <button class="notice__close" id="noticeClose" type="button" aria-label="Закрыть">&times;</button>
+        <p>Пожалуйста пройдите авторизацию чтобы система определила вас. Если документ
+          принадлежит вам, введения PIN кода не требуется.
+          <a href="#" id="authLink">Нажмите здесь для авторизации</a></p>
+      </div>
+
+      <h1 class="form-title" id="formTitle">Введите PIN-код для просмотра документа</h1>
+
+      <form class="card" id="pinForm" autocomplete="off" novalidate>
+        <div class="field">
+          <label for="pin">ПИН код</label>
+          <input type="text" id="pin" name="pin" inputmode="numeric" spellcheck="false">
+        </div>
+
+        <div class="field">
+          <label for="captchaAnswer">Код проверки</label>
+          <div class="captcha-row">
+            <canvas id="captchaCanvas" width="170" height="46" role="img"
+                    aria-label="Проверочное выражение"></canvas>
+            <input type="text" id="captchaAnswer" name="captchaAnswer"
+                   placeholder="Введите ответ арифметического действия">
+          </div>
+        </div>
+
+        <p class="error" id="formError" role="alert" hidden></p>
+
+        <button class="btn-open" type="submit">Открыть</button>
+      </form>
+
+      <p class="hint">PIN-код размещается рядом с QR-кодом документа</p>
+
+      <div class="opened" id="openedState" hidden>
+        <p class="opened__title">Документ открыт</p>
+        <button class="btn-lock" id="lockBtn" type="button">Закрыть документ</button>
+      </div>
+    </section>
+
+    <!-- Правая колонка: превью документа -->
+    <section class="doc-col">
+      <article class="doc-sheet" id="docSheet">
+        <header class="doc-sheet__head">
+          <div class="brand-mark">
+            <img src="my-gov-logo.svg" alt="my.gov.uz">
+          </div>
+          <div class="skeleton skeleton--wide"></div>
+        </header>
+
+        <div class="doc-sheet__body" id="docBody">
+          <div class="skeleton skeleton--title"></div>
+          <div class="bars" id="lockedBars"></div>
+          <div class="doc-text" id="unlockedText" hidden></div>
+        </div>
+
+        <footer class="doc-sheet__foot">
+          <div class="bars bars--foot" id="lockedBarsFoot"></div>
+          <div class="doc-text doc-text--foot" id="unlockedFoot" hidden></div>
+
+          <div class="qr-block">
+            <div class="pin-badge" id="pinBadge">
+              <span class="pin-badge__code" id="pinBadgeCode">----</span>
+            </div>
+            <canvas id="qrCanvas" width="112" height="112" aria-label="QR-код документа"></canvas>
+            <svg class="qr-arrow" viewBox="0 0 90 90" aria-hidden="true">
+              <path d="M6 6 C34 18 52 38 62 62" fill="none" stroke="#e02020" stroke-width="7"
+                    stroke-linecap="round"/>
+              <path d="M46 52 L70 70 L52 74 Z" fill="#e02020"/>
+            </svg>
+          </div>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    © <a href="#" class="site-foot__brand" id="brandNameFoot">Портал документов</a> <span id="brandYear">2026</span>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
